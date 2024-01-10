@@ -12,3 +12,19 @@ router.get('/', (req, res) => {
         }
     })
 })
+
+router.post('/', (req, res) => {
+    const{title, text} = req.body;
+
+    if(req.body) {
+        const addNote = {title, text, id: uuid.v4()};
+    }
+})
+
+fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    if (err) {
+        console.error(err);
+    } else {
+        JSON.parse(data).push(addNote);
+    }
+})
