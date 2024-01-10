@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { response } = require('express');
 const fs = require('fs');
 const uuid = require('uuid');
 
@@ -18,13 +17,21 @@ router.post('/', (req, res) => {
 
     if(req.body) {
         const addNote = {title, text, id: uuid.v4()};
-    }
-})
 
-fs.readFile('./db/db.json', 'utf8', (err, data) => {
-    if (err) {
-        console.error(err);
-    } else {
-        JSON.parse(data).push(addNote);
+        fs.readFile('./db/db.json', 'utf8', (err, data) => {
+            if (err) {
+            console.error(err);
+            } else {
+            JSON.parse(data).push(addNote);
+
+            fs.writeFile('./db/db.json',
+            JSON.stringify(JSON.parse(data), null, 4),
+            (err) => {
+                err ? console.error(err) : console.info('Reviews updated.')
+            })
+            }
+        })
     }
-})
+});
+
+module.exports = api;
