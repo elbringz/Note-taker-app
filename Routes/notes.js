@@ -29,8 +29,9 @@ api.post('/', (req, res) => {
             fs.writeFile('./db/db.json',
             JSON.stringify(notes, 4),
             (err) => {
-                err ? console.error(err) : console.info('Reviews updated.')
+                err ? console.error(err) : console.info('Notes updated.')
             })
+            res.json('./db/db.json')
             }
         })
     }
